@@ -5,6 +5,7 @@ import static java.lang.Math.*;
 public class Complex {
 	
 	public static final Complex ONE = new Complex(1,0);
+	public static final Complex I = new Complex(0,1);
 	
 	private double r, i;
 	
@@ -45,8 +46,62 @@ public class Complex {
 		return z.r*z.r+z.i*z.i;
 	}
 	
+	public static Complex ln(Complex z) {
+		return new Complex(log(mod(z)),argument(z));
+	}
+	
+	/**
+	 * e^iphi = cos(phi) + isin(phi)
+	 * @param phi
+	 * @return
+	 */
 	public static Complex euler(double phi) {
-		return new Complex(cos(phi), sin(phi));
+		return new Complex(Math.cos(phi), Math.sin(phi));
+	}
+	
+	/**
+	 * e^iz
+	 * @param z
+	 * @return
+	 */
+	public static Complex euler(Complex z) {
+		Complex iz = mul(z, I);
+		return exp(iz);
+	}
+	
+	/**
+	 * e^z
+	 * @param z
+	 * @return
+	 */
+	public static Complex exp(Complex z) {
+		return mul(valueOf(Math.exp(z.r)), euler(z.i));
+	}
+	
+//	public static Complex cos(Complex z) {
+//		Complex eiz = euler(z);
+//		Complex eiz2 = div(ONE, eiz);
+//		return mul(add(eiz, eiz2), valueOf(0.5));
+//	}
+	
+	public static Complex cos(Complex z) {
+		return new Complex(Math.cos(z.r)*Math.cosh(z.i), -Math.sin(z.r)*Math.sinh(z.i));
+	}
+	
+	public static Complex sin(Complex z) {
+		return new Complex(Math.sin(z.r)*Math.cosh(z.i), Math.cos(z.r)*Math.sinh(z.i));
+	}
+	
+	public static Complex tan(Complex z) {
+		return div(sin(z), cos(z));
+	}
+	
+	public static Complex atan(Complex z) {
+		return mul(valueOf(0.5), mul(I, sub(ln(sub(ONE,mul(I, z))), ln(add(ONE, mul(I, z))))));
+	}
+	
+	public static Complex valueOf(double r) {
+		return new Complex(r,0);
 	}
 	
 	public static double argument(Complex z) {
