@@ -1,3 +1,6 @@
+package com.camoga.grapher;
+
+import com.camoga.grapher.functions.Polynomial;
 
 public class Main {
 	public Main() {

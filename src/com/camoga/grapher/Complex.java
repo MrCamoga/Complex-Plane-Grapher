@@ -1,7 +1,11 @@
+package com.camoga.grapher;
 
 import static java.lang.Math.*;
 
 public class Complex {
+	
+	public static final Complex ONE = new Complex(1,0);
+	
 	private double r, i;
 	
 	public Complex() {

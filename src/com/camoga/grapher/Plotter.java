@@ -1,3 +1,4 @@
+package com.camoga.grapher;
 import java.awt.Color;
 
 public class Plotter {

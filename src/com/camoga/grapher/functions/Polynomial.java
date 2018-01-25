@@ -1,3 +1,8 @@
+package com.camoga.grapher.functions;
+
+import com.camoga.grapher.Complex;
+import com.camoga.grapher.IFunction;
+
 public class Polynomial implements IFunction {
 	
 	//TODO coefficients can be functions
@@ -25,6 +30,7 @@ public class Polynomial implements IFunction {
 		return m;
 	}
 	
+	//TODO parse to String
 	public String toString() {
 		return "polynomial";
 	}
