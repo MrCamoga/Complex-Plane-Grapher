@@ -1,18 +1,17 @@
 package com.camoga.grapher;
 
+import com.camoga.grapher.functions.Mandelbrot;
 import com.camoga.grapher.functions.Polynomial;
 
 public class Main {
-	public Main() {
-		Window window = new Window();
+	public Main(int WIDTH, int HEIGHT) {
+		int[] pixels = Plotter.plot(new Mandelbrot(100), WIDTH, HEIGHT, -0.16, 1.02, .05);
+		Window window = new Window(WIDTH, HEIGHT);
 		Polynomial f = new Polynomial(-1,-2,10,7,-1);
-		int[] pixels = Plotter.plot((Complex z)-> Complex.atan(Complex.add(Complex.mul(z, z),new Complex(6,0))), 600, 600, 0, 0, 10);
-		for(int i = 0; i < window.pixels.length; i++) {
-			window.pixels[i] = pixels[i]; 
-		}
+		
 	}
 	
 	public static void main(String[] args) {
-		new Main();
+		new Main(900,900);
 	}
 }

@@ -5,7 +5,6 @@ import com.camoga.grapher.IFunction;
 
 public class Polynomial implements IFunction {
 	
-	//TODO coefficients can be functions
 	public Complex[] coefficients;
 	
 	//TODO flip around coefficients

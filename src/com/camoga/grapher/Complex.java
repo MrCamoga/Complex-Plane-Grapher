@@ -78,11 +78,11 @@ public class Complex {
 		return mul(valueOf(Math.exp(z.r)), euler(z.i));
 	}
 	
-//	public static Complex cos(Complex z) {
-//		Complex eiz = euler(z);
-//		Complex eiz2 = div(ONE, eiz);
-//		return mul(add(eiz, eiz2), valueOf(0.5));
-//	}
+	public static Complex cos2(Complex z) {
+		Complex eiz = euler(z);
+		Complex eiz2 = reciprocal(eiz);
+		return mul(add(eiz, eiz2), valueOf(0.5));
+	}
 	
 	public static Complex cos(Complex z) {
 		return new Complex(Math.cos(z.r)*Math.cosh(z.i), -Math.sin(z.r)*Math.sinh(z.i));
@@ -96,8 +96,63 @@ public class Complex {
 		return div(sin(z), cos(z));
 	}
 	
+	public static Complex cosh(Complex z) {
+		return cos(mul(I, z));
+	}
+
+	public static Complex sinh(Complex z) {
+		return mul(new Complex(0,-1), sin(mul(I, z)));
+	}
+	
+	public static Complex tanh(Complex z) {
+		return mul(new Complex(0,-1), tan(mul(I, z)));
+	}
+	
+	public static Complex acos(Complex z) {
+		return sub(valueOf(PI/2), asin(z));
+		//return mul(new Complex(0,-1), ln(add(z, sqrt(sub(pow(z,valueOf(2)), ONE)))));
+	}
+	
+	public static Complex asin(Complex z) {
+		return mul(new Complex(0,-1), ln(add(mul(z,I), sqrt(sub(ONE, pow(z,2))))));
+	}
+	
 	public static Complex atan(Complex z) {
 		return mul(valueOf(0.5), mul(I, sub(ln(sub(ONE,mul(I, z))), ln(add(ONE, mul(I, z))))));
+	}
+	
+	public static Complex asec(Complex z) {
+		return acos(reciprocal(z));
+	}
+	
+	public static Complex acsc(Complex z) {
+		return asin(reciprocal(z));
+	}
+	
+	public static Complex acot(Complex z) {
+		return atan(reciprocal(z));
+	}
+	
+	public static Complex pow(Complex z, double real) {
+		return pow(z, valueOf(real));
+	}
+	
+	public static Complex pow(Complex z, Complex w) {
+		double modz = mod(z);
+		double argz = argument(z);
+		// (r*e^ia)^(c+di)= r^c*e^(iac) * e^(ln(r)*di)*e^(-ad)
+		//real product
+		double real = Math.pow(modz, w.r)*Math.exp(-argz*w.i);
+		Complex c = euler(Math.log(modz)*w.i+argz*w.r);
+		return mul(c, valueOf(real));
+	}
+	
+	public static Complex sqrt(Complex z) {
+		return pow(z, 0.5);
+	}
+	
+	public static Complex reciprocal(Complex z) {
+		return div(ONE, z);
 	}
 	
 	public static Complex valueOf(double r) {
@@ -113,6 +168,6 @@ public class Complex {
 	}
 
 	public static double mod(Complex z) {
-		return sqrt(modSq(z));
+		return Math.sqrt(modSq(z));
 	}
 }

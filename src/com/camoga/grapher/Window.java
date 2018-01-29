@@ -1,5 +1,6 @@
 package com.camoga.grapher;
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -7,24 +8,24 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
-public class Window extends Canvas {
+public class Window extends Canvas implements Runnable {
 	
 	public BufferedImage image;
 	public int[] pixels;
 	
-	public Window() {
+	public Window(int WIDTH, int HEIGHT) {
 		JFrame f = new JFrame("Complex Plotter - by MrCamoga");
-		f.setSize(600, 600);
+		f.setSize(WIDTH, HEIGHT);
 		f.setResizable(true);
 		f.setLocationRelativeTo(null);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.add(this);
 		f.setVisible(true);
 		
-		image = new BufferedImage(600, 600, BufferedImage.TYPE_INT_RGB);
+		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 		
-		Thread thread = new Thread(() -> run());
+		Thread thread = new Thread(this);
 		thread.start();
 	}
 	
@@ -55,7 +56,14 @@ public class Window extends Canvas {
 		}
 		
 		Graphics g = buffer.getDrawGraphics();
+		for(int i = 0; i < pixels.length; i++) {
+			pixels[i] = Plotter.pixels[i];
+		}
 		g.drawImage(image, 0, 0, null);
+		if(Plotter.yRendering != -1) {
+			g.setColor(Color.red);
+			g.drawLine(0, Plotter.yRendering, image.getWidth(), Plotter.yRendering);
+		}
 		g.dispose();
 		buffer.show();
 	}
