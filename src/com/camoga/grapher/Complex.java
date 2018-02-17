@@ -170,4 +170,16 @@ public class Complex {
 	public static double mod(Complex z) {
 		return Math.sqrt(modSq(z));
 	}
+	
+	public double real() {
+		return r;
+	}
+	
+	public double imaginary() {
+		return i;
+	}
+
+	public static Complex cbrt(Complex z) {
+		return pow(z, 1/3D);
+	}
 }

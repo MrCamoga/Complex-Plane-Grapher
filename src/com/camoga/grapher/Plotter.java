@@ -7,6 +7,20 @@ public class Plotter {
 	public static int yRendering = -1;
 	
 	/**
+	 * num of lines = 24/guide
+	 */
+	private final static double guide = 2;
+	/**
+	 * thickness
+	 */
+	private final static double guidelines = .2;
+	
+	/**
+	 * frequency of discontinuities
+	 */
+	private final static float magnitudmod = 1.5f;
+	
+	/**
 	 * 
 	 * @param f
 	 * @param width of the window
@@ -14,9 +28,10 @@ public class Plotter {
 	 * @param xs centered at x
 	 * @param ys centered at iy
 	 * @param scale plot width and height in units
+	 * @param coloring 
 	 * @return
 	 */
-	public static int[] plot(IFunction f, int width, int height, double xs, double ys, double scale) {
+	public static int[] plot(IFunction f, int width, int height, double xs, double ys, double scale, int coloring) {
 		pixels = new int[width*height];
 		
 		for(int y = 0; y < height; y++) {
@@ -25,13 +40,31 @@ public class Plotter {
 			for(int x = 0; x < width; x++) {
 				double xr = (double)(x)/(double)width*scale + xs - scale/2;
 				Complex z = f.evaluate(new Complex(xr,-yr));
+				
 				float hue = (float) (Complex.argument(z)/(2*Math.PI));
-				float brightness = (float) (Math.log(Complex.mod(z))%1.01)/1.01f;
-//				float brightness = (float) (1-Math.pow(2, -Complex.mod(z)));
-				pixels[x+y*width] = Color.HSBtoRGB(hue, 1, brightness);
+				float saturation = 1;
+				float brightness = 0;
+				
+				if((coloring & 0b01) > 0) {
+					brightness = (float) (Math.abs(Math.log(Complex.mod(z)))%magnitudmod)/magnitudmod;
+				} else {
+					brightness = (float) (1-Math.pow(2, -Complex.mod(z)));
+				}
+				
+				if((coloring & 0b10) > 0) {
+					double mod = Math.abs((Complex.argument(z)/Math.PI*12)%guide);
+					if(mod <= guidelines) {
+						saturation = (float) (mod/guidelines);
+					} else if(guide-mod <= guidelines) {
+						saturation = (float) ((guide-mod)/guidelines);
+					}						
+				}
+					
+					pixels[x+y*width] = Color.HSBtoRGB(hue, saturation, brightness);
+				
 			}
 		}
-		
+		System.err.println("Plotting finished!");
 		return pixels;
 	}
 }
