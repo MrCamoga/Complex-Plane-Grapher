@@ -13,7 +13,7 @@ public class Main {
 		int WIDTH = 800, HEIGHT = 800;
 		
 		new Window(WIDTH, HEIGHT); // optional
-		int[] pixels = Plotter.plot(z -> Complex.riemannzetareal(z, 100), WIDTH, HEIGHT, -3, -3,3,3, 0b10);
+		int[] pixels = Plotter.plot(z -> Complex.cosh(Complex.cos(z)), 800, 800, -4, -4, 4, 4, 0b10);
 
 		saveImage(pixels, 800, 800);
 	}

@@ -22,6 +22,9 @@ public class Plotter {
 	 */
 	private final static float magnitudemod = 1.5f;
 	
+	public static final int PLOTMOD = 1;
+	public static final int PLOTLINES = 2;
+	
 	/**
 	 * 
 	 * @param f
@@ -48,7 +51,8 @@ public class Plotter {
 				float brightness = 0;
 				
 				if((coloring & 0b01) > 0) {
-					brightness = (float) (Math.abs(Math.log(Complex.mod(z)))%magnitudemod)/magnitudemod;
+					brightness = (float) (Math.log(Complex.mod(z))%magnitudemod)/magnitudemod;
+					if(brightness < 0) brightness += 1;
 				} else {
 					brightness = (float) (1-Math.pow(2, -Complex.mod(z)));
 				}
