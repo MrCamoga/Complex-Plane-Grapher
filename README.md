@@ -1,4 +1,4 @@
-#Complex Plane Plotter
+# Complex Plane Plotter
 Output a plot of a function from ℂ to ℂ.
 
 Hue of a pixel represents the argument and brightness represents the modulus.
