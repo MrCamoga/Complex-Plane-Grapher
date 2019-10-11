@@ -20,7 +20,7 @@ public class Plotter {
 	/**
 	 * frequency of discontinuities
 	 */
-	private final static float magnitudemod = 1.5f;
+	private final static float magnitudemod = 1f;
 	
 	public static final int PLOTMOD = 1;
 	public static final int PLOTLINES = 2;
@@ -33,7 +33,7 @@ public class Plotter {
 	 * @param xs centered at x
 	 * @param ys centered at iy
 	 * @param scale plot width and height in units
-	 * @param coloring 
+	 * @param coloring Use {@link #PLOTMOD} {@link #PLOTLINES}
 	 * @return
 	 */
 	public static int[] plot(IFunction f, int width, int height, double x0, double y0, double x1, double y1, int coloring) {
@@ -51,7 +51,7 @@ public class Plotter {
 				float brightness = 0;
 				
 				if((coloring & 0b01) > 0) {
-					brightness = (float) (Math.log(Complex.mod(z))%magnitudemod)/magnitudemod;
+					brightness = (float) ((Math.log(Complex.mod(z))/Math.log(2))%magnitudemod)/magnitudemod;
 					if(brightness < 0) brightness += 1;
 				} else {
 					brightness = (float) (1-Math.pow(2, -Complex.mod(z)));
