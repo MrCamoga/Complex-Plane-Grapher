@@ -1,6 +1,6 @@
 package com.camoga.grapher.functions;
 
-import com.camoga.grapher.Complex;
+import com.camoga.complex.Complex;
 import com.camoga.grapher.IFunction;
 
 public class Product implements IFunction {

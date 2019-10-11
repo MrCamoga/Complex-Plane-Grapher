@@ -12,10 +12,12 @@ public class Window extends Canvas implements Runnable {
 	
 	public BufferedImage image;
 	public int[] pixels;
+	public int SCALE = 4;
 	
 	public Window(int WIDTH, int HEIGHT) {
 		JFrame f = new JFrame("Complex Plotter - by MrCamoga");
-		f.setSize(WIDTH, HEIGHT);
+		f.setSize(800, 800);
+		SCALE = 800/WIDTH;
 		f.setResizable(true);
 		f.setLocationRelativeTo(null);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,10 +61,10 @@ public class Window extends Canvas implements Runnable {
 		for(int i = 0; i < pixels.length; i++) {
 			pixels[i] = Plotter.pixels[i];
 		}
-		g.drawImage(image, 0, 0, null);
+		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		if(Plotter.yRendering != -1) {
 			g.setColor(Color.red);
-			g.drawLine(0, Plotter.yRendering, image.getWidth(), Plotter.yRendering);
+			g.drawLine(0, Plotter.yRendering*SCALE, image.getWidth()*SCALE, Plotter.yRendering*SCALE);
 		}
 		g.dispose();
 		buffer.show();
