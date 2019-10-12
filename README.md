@@ -16,10 +16,10 @@ int[] pixels = Plotter.plot(f, width, height, x start, y start, x end, y end, co
 * **y start/end**: imaginary interval
 
 * **coloring**: You can combine the two with | operator.
-    * **0b01** / **Plotter.PLOTMOD**: reset the brightness when magnitude is greater than an integer power of 2 
-    * **0b10** / **Plotter.PLOTLINES**: draw white lines at regular arguments intervals
+    * **0b01** / **Plotter.CONTOURLINES**: draw contour lines at integer powers of 2
+    * **0b10** / **Plotter.ARGLINES**: draw white lines at regular arguments intervals
 <figure class="image"><img src="output/graph8025905174888886.png" width="20%"></img><figcaption>Plain image</figcaption></figure>
-<figure class="image"><img src="output/graph8025898484292379.png" width="20%"></img><figcaption>Magnitude mod</figcaption></figure>
+<figure class="image"><img src="output/graph8025898484292379.png" width="20%"></img><figcaption>Contour lines</figcaption></figure>
 <figure class="image"><img src="output/graph8025891493449187.png" width="20%"></img><figcaption>Argument lines</figcaption></figure>
 <figure class="image"><img src="output/graph8025880882216820.png" width="20%"></img><figcaption>Both</figcaption></figure>
 

@@ -5,17 +5,17 @@ import java.io.FileOutputStream;
 
 import javax.imageio.ImageIO;
 
-import com.camoga.complex.Complex;
+import static com.camoga.complex.Complex.*;
 
 public class Main {
 	
 	public static void main(String[] args) {
-		int WIDTH = 800, HEIGHT = 800;
+		int WIDTH = 1600, HEIGHT = 1600;
 		
 		new Window(WIDTH, HEIGHT); // optional
-		int[] pixels = Plotter.plot(z -> Complex.cosh(Complex.cos(z)), 800, 800, -4, -4, 4, 4, 0b10);
+		int[] pixels = Plotter.plot(z -> zeta(z, 100), WIDTH, HEIGHT, -4, -2, 2, 20, Plotter.CONTOURLINES | Plotter.ARGLINES);
 
-		saveImage(pixels, 800, 800);
+		saveImage(pixels, WIDTH, HEIGHT);
 	}
 	
 	public static void saveImage(int[] pixels, int WIDTH, int HEIGHT) {

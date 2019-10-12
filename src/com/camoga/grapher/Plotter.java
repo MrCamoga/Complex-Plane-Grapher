@@ -22,8 +22,8 @@ public class Plotter {
 	 */
 	private final static float magnitudemod = 1f;
 	
-	public static final int PLOTMOD = 1;
-	public static final int PLOTLINES = 2;
+	public static final int CONTOURLINES = 1;
+	public static final int ARGLINES = 2;
 	
 	/**
 	 * 
@@ -33,7 +33,7 @@ public class Plotter {
 	 * @param xs centered at x
 	 * @param ys centered at iy
 	 * @param scale plot width and height in units
-	 * @param coloring Use {@link #PLOTMOD} {@link #PLOTLINES}
+	 * @param coloring Use {@link #CONTOURLINES} {@link #ARGLINES}
 	 * @return
 	 */
 	public static int[] plot(IFunction f, int width, int height, double x0, double y0, double x1, double y1, int coloring) {
@@ -44,7 +44,7 @@ public class Plotter {
 			double yr = y1 - (double)(y)/(double)height*(y1-y0);
 			for(int x = 0; x < width; x++) {
 				double xr = x0 + (double)(x)/(double)width*(x1-x0);
-				Complex z = f.evaluate(new Complex(xr,-yr));
+				Complex z = f.evaluate(new Complex(xr,yr));
 				
 				float hue = (float) (Complex.argument(z)/(2*Math.PI));
 				float saturation = 1;
