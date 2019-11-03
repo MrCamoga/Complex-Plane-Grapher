@@ -30,9 +30,10 @@ public class Plotter {
 	 * @param f
 	 * @param width of the window
 	 * @param height of the window
-	 * @param xs centered at x
-	 * @param ys centered at iy
-	 * @param scale plot width and height in units
+	 * @param x0 real axis start
+	 * @param y0 imaginary axis start
+	 * @param x1 real axis end
+	 * @param y1 imaginary axis end
 	 * @param coloring Use {@link #CONTOURLINES} {@link #ARGLINES}
 	 * @return
 	 */
